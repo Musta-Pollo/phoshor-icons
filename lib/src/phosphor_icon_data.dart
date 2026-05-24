@@ -9,6 +9,27 @@ typedef PhosphorDuotoneIconData = IconData;
 const String _fontPackage = 'phosphor_flutter';
 const String _duotoneFontFamily = 'PhosphorDuotone';
 
+/// Constructs a [PhosphorFlatIconData] for a runtime [codePoint] and [style].
+///
+/// [style] is case-insensitive: `'regular'`, `'Regular'`, `'bold'`, `'fill'`,
+/// `'light'`, `'thin'` are all valid.
+///
+/// Use this instead of the removed `PhosphorFlatIconData(code, style)`
+/// constructor when the codepoint is a runtime value (e.g. stored in the DB).
+///
+/// ```dart
+/// phosphorIcon(label.iconCode, 'regular')
+/// ```
+PhosphorFlatIconData phosphorIcon(int codePoint, String style) {
+  final s = style[0].toUpperCase() + style.substring(1).toLowerCase();
+  return IconData(
+    codePoint,
+    fontFamily: 'Phosphor$s',
+    fontPackage: _fontPackage,
+    matchTextDirection: true,
+  );
+}
+
 IconData? phosphorDuotoneSecondaryIcon(IconData? icon) {
   if (icon == null ||
       icon.fontPackage != _fontPackage ||
